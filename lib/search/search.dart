@@ -27,10 +27,11 @@ class _SearchpageState extends State<Searchpage> {
         responsestring != null
             ? Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 400),
+                  padding: const EdgeInsets.only(top:300),
                   child: Text(
                     responsestring ?? "",
-                    style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ),
               )
@@ -181,11 +182,10 @@ class _SearchpageState extends State<Searchpage> {
         for (Map<String, dynamic> index in data) {
           search.add(Sellmodel.fromJson(index));
         }
-      } else {
-        search.clear();
       }
       if (response.statusCode == 404) {
         responsestring = data['message'];
+        debugPrint(responsestring.toString());
       }
     } catch (error) {
       debugPrint(error.toString());

@@ -16,6 +16,7 @@ import '../divider/divider.dart';
 import 'package:http/http.dart' as http;
 import '../reviewwithrating/review.dart';
 import '../search/search.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class Details extends StatefulWidget {
   const Details(
@@ -40,8 +41,57 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  TextEditingController controller = TextEditingController();
+  late stt.SpeechToText speech;
+  bool enablespeech = false;
+
+  onListen(context) async {
+    if (!enablespeech) {
+      bool available = await speech.initialize(
+        onStatus: (status) {
+          debugPrint(status);
+        },
+        onError: (errorNotification) {
+          debugPrint(errorNotification.toString());
+        },
+      );
+      if (available) {
+        flashfunction(
+            context, "Mic On", "Search with your voice", FlashType.success);
+        setState(() {
+          enablespeech = true;
+        });
+        speech.listen(
+          onResult: (result) => setState(() {
+            change1 = result.recognizedWords;
+            changepage1 = result.recognizedWords;
+            controller.text =result.recognizedWords;
+            debugPrint(result.recognizedWords);
+          }),
+        );
+      }
+    } else {
+      setState(() {
+        enablespeech = false;
+        speech.stop();
+      });
+    }
+  }
+
+
+
+
+
+
+
   String? changepage1;
   String? change1;
+  @override
+  void initState() {
+    speech = stt.SpeechToText();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +131,7 @@ class _DetailsState extends State<Details> {
                           borderRadius: BorderRadius.circular(9),
                           color: Colors.transparent),
                       child: TextFormField(
+                        controller: controller,
                         onChanged: (value) {
                           if (value.isNotEmpty) {
                             setState(() {
@@ -127,7 +178,7 @@ class _DetailsState extends State<Details> {
                       width: 0.5,
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed:()=>onListen(context),
                         icon: const Icon(
                           Icons.mic,
                           size: 25,

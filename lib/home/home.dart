@@ -23,6 +23,8 @@ class _HomepageState extends State<Homepage> {
   late stt.SpeechToText speech;
   bool speechEnabled = false;
 
+   TextEditingController controller = TextEditingController();
+
   @override
   void initState() {
     speech = stt.SpeechToText();
@@ -54,6 +56,7 @@ class _HomepageState extends State<Homepage> {
           onResult: (result) => setState(() {
             onchange = result.recognizedWords;
             changepage = result.recognizedWords;
+            controller.text =result.recognizedWords;
             debugPrint(result.recognizedWords);
           }),
         );
@@ -93,6 +96,7 @@ class _HomepageState extends State<Homepage> {
                             borderRadius: BorderRadius.circular(9),
                             color: Colors.transparent),
                         child: TextFormField(
+                          controller: controller,
                           onChanged: (value) {
                             if (value.isNotEmpty) {
                               setState(() {
