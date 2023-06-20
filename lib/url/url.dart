@@ -1,0 +1,13 @@
+const mainurl = "https://192.168.1.14:3000/api";
+const signinurl = "$mainurl/signin";
+const signupurl = "$mainurl/signup";
+const postsellurl = "$mainurl/postsell";
+const getsellurl = "$mainurl/getsell";
+const deletesellurl = "$mainurl/deletesell";
+const patchsellurl = "$mainurl/patchsell";
+const getreqdataurl = "$mainurl/products?catergory=";
+const searchurl ="$mainurl/products/search/";
+const expensiveurl ="$mainurl/expensive";
+const cheapurl ="$mainurl/cheap";
+const availableurl ="$mainurl/available";
+const ratingurl ="$mainurl/rating?productid=";
