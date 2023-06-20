@@ -25,17 +25,18 @@ class _CustomRatingState extends State<CustomRating> {
                   height: 25,
                   width: 124,
                   child: ListView.builder(
-                      itemCount: 1,
+                      itemCount: ratingget.length,
                       primary: false,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                              ratingget.map((e) => sum += double.parse(e.rating[index])).toSet();
+    debugPrint(sum.toString());
                         return RatingBarIndicator(
-                          rating:
-                              double.parse(ratingget[index].rating) / totalitem,
+                          rating: sum / ratingget.length,
                           itemBuilder: (context, index) => const Icon(
                             Icons.star,
-                            color: Colors.amber,
+                            color: Color.fromRGBO(255, 193, 7, 1),
                           ),
                           itemCount: 5,
                           itemSize: widget.size,
@@ -61,15 +62,17 @@ class _CustomRatingState extends State<CustomRating> {
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in data) {
         ratingget.add(Rating.fromJson(index));
+      
       }
-    
     }
-      ratingget.toSet();
+  
+
     if (response.statusCode == 404) {
       setState(() {
         initialrating = double.parse(data['rate']);
       });
     }
+     
     return ratingget;
   }
 
@@ -79,8 +82,12 @@ class _CustomRatingState extends State<CustomRating> {
   void initState() {
     ratingget;
     getrating();
+
     super.initState();
   }
+
+  double sum = 0;
+  double averagerate = 0;
 }
 
 class Initialrate extends StatelessWidget {
