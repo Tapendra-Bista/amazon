@@ -22,7 +22,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   late stt.SpeechToText speech;
   bool speechEnabled = false;
-  String? speechtext;
+
   @override
   void initState() {
     speech = stt.SpeechToText();
@@ -45,31 +45,24 @@ class _HomepageState extends State<Homepage> {
         },
       );
       if (available) {
-        flashfunction(context, "Mic", "mic is on now search with voice",
-            FlashType.success);
+        flashfunction(
+            context, "Mic On", "Search with your voice", FlashType.success);
         setState(() {
           speechEnabled = true;
         });
         speech.listen(
           onResult: (result) => setState(() {
-            speechtext = result.recognizedWords;
+            onchange = result.recognizedWords;
+            changepage = result.recognizedWords;
             debugPrint(result.recognizedWords);
           }),
-        
         );
-        
       }
-  setState(() {
-       onchange = speechtext;
-  changepage =speechtext;
-  });
     } else {
       setState(() {
         speechEnabled = false;
-            speech.stop();
+        speech.stop();
       });
-  
-
     }
   }
 
@@ -146,9 +139,9 @@ class _HomepageState extends State<Homepage> {
                       ),
                       IconButton(
                           onPressed: () => onListen(context),
-                          tooltip: "Searching",
-                          icon:  Icon(
-                         speechEnabled?Icons.check:Icons.mic,
+                          tooltip: "Search with your voice",
+                          icon: const Icon(
+                            Icons.mic,
                             size: 25,
                           ))
                     ],
@@ -165,7 +158,7 @@ class _HomepageState extends State<Homepage> {
             child: Column(
               children: [
                 const Customlocation(),
-               
+
                 changepage != null
                     ? Searchpage(
                         searchitem: onchange ?? "",
