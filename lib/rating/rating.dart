@@ -25,13 +25,11 @@ class _CustomRatingState extends State<CustomRating> {
                   height: 25,
                   width: 124,
                   child: ListView.builder(
-                      itemCount: ratingget.length,
+                      itemCount: 1,
                       primary: false,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                              ratingget.map((e) => sum += double.parse(e.rating[index])).toSet();
-    debugPrint(sum.toString());
                         return RatingBarIndicator(
                           rating: sum / ratingget.length,
                           itemBuilder: (context, index) => const Icon(
@@ -62,17 +60,18 @@ class _CustomRatingState extends State<CustomRating> {
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in data) {
         ratingget.add(Rating.fromJson(index));
-      
+        sum += double.parse(Rating.fromJson(index).rating);
       }
+      debugPrint(sum.toString());
+       debugPrint((sum/ratingget.length).toString());
     }
-  
 
     if (response.statusCode == 404) {
       setState(() {
         initialrating = double.parse(data['rate']);
       });
     }
-     
+
     return ratingget;
   }
 

@@ -66,7 +66,6 @@ class _ItemcatoryState extends State<Itemcatory> {
             height: 9,
           ),
           FutureBuilder(
-             
               future: widget.future,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
