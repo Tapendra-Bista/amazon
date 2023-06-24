@@ -41,6 +41,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  int qauntity = 0;
   TextEditingController controller = TextEditingController();
   late stt.SpeechToText speech;
   bool enablespeech = false;
@@ -65,7 +66,7 @@ class _DetailsState extends State<Details> {
           onResult: (result) => setState(() {
             change1 = result.recognizedWords;
             changepage1 = result.recognizedWords;
-            controller.text =result.recognizedWords;
+            controller.text = result.recognizedWords;
             debugPrint(result.recognizedWords);
           }),
         );
@@ -77,12 +78,6 @@ class _DetailsState extends State<Details> {
       });
     }
   }
-
-
-
-
-
-
 
   String? changepage1;
   String? change1;
@@ -178,7 +173,7 @@ class _DetailsState extends State<Details> {
                       width: 0.5,
                     ),
                     IconButton(
-                        onPressed:()=>onListen(context),
+                        onPressed: () => onListen(context),
                         icon: const Icon(
                           Icons.mic,
                           size: 25,
@@ -301,7 +296,12 @@ class _DetailsState extends State<Details> {
                     ),
                     Custommaterialbutton(
                         width: double.infinity,
-                        function: () {},
+                        function: () {
+                          setState(() {
+                            postcart();
+                            qauntity = qauntity++;
+                          });
+                        },
                         name: "Add to Cart",
                         color: Colors.yellow.shade500,
                         borderclr: Colors.black,
@@ -386,6 +386,39 @@ class _DetailsState extends State<Details> {
         ),
       ),
     );
+  }
+
+// to add item in cart
+  Future postcart() async {
+    var body = {
+      "productname": widget.productname,
+      "usermail": "tapendrabista01@gmail.com",
+      "image": widget.image,
+      "discription": widget.discription,
+      "price": widget.price,
+      "qantity": widget.qantity,
+      "catergory": widget.catergory,
+      "cartqauntity": qauntity.toString(),
+    };
+
+    var client = http.Client();
+    try {
+      var response = await client.patch(
+        Uri.parse(carturl),
+        headers: {"Content-Type": "applicaton/json"},
+        body: jsonEncode(body),
+      );
+
+      var jsresponse = jsonDecode(response.body.toString());
+      if (response.statusCode == 200) {
+        debugPrint(jsresponse['messgae']);
+      }
+      if (response.statusCode == 201) {
+        debugPrint(jsresponse['messgae']);
+      }
+    } catch (error) {
+      debugPrint(" error in cart ,$error");
+    }
   }
 
   late var productid = widget.id;

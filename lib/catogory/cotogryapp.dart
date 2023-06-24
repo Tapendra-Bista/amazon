@@ -1,6 +1,5 @@
 import 'package:amazon/screen/screen.dart';
 import 'package:flutter/material.dart';
-
 import '../constans/cons.dart';
 
 class Catogory extends StatelessWidget {

@@ -5,19 +5,21 @@ import 'package:amazon/constans/cons.dart';
 import 'package:amazon/url/url.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flashtoast/flash_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../common/appbar.dart';
 import '../../common/expandtextfield.dart';
 import '../../common/materialb.dart';
 import '../../common/textfield.dart';
 import "package:http/http.dart" as http;
+import 'package:cloudinary_public/cloudinary_public.dart';
 
+final cloudinary = CloudinaryPublic("tbistaxmok1", "s580a5rg", cache: true);
+// CLOUDINARY_URL=cloudinary://447427762892173:Ycy1WVPtxfi5pY7czf-hsIE6pFg@tbistaxmok1
 class Createpage extends StatefulWidget {
   const Createpage({super.key});
-
   @override
   State<Createpage> createState() => _CreatepageState();
 }
@@ -242,29 +244,35 @@ class _CreatepageState extends State<Createpage> {
     'Grocery',
     'Essentials',
   ];
-  List imglinks = [];
+
   Future<List<File>> pickImage() async {
-    List<File> images = [];
-
     try {
-      final photo = await ImagePicker().pickMultiImage();
+      final photo = await FilePicker.platform
+          .pickFiles(allowMultiple: true, type: FileType.image);
 
-      if (photo.isNotEmpty) {
-        for (int i = 0; i < photo.length; i++) {
-          images.add(File(photo[i].path));
-
-          setState(() {
-            imglinks.add(photo[i].path.toString());
-            imageslist = images;
-          });
+      if (photo != null && photo.files.isNotEmpty) {
+        for (int i = 0; i < photo.files.length; i++) {
+          imageslist.add(File(photo.files[i].path ?? ""));
+          CloudinaryResponse response =
+              await cloudinary.uploadFile(      
+                CloudinaryFile.fromFile(
+            imageslist[i].path,
+            resourceType: CloudinaryResourceType.Image,
+            folder:"flutter amazon/images"
+          ),
+          uploadPreset: "s580a5rg",
+          
+          );
+          imageurl.add(response.secureUrl);
         }
       }
     } catch (error) {
       debugPrint(error.toString());
     }
-    return images;
+    return imageslist;
   }
 
+  List<String> imageurl = [];
   List<File> imageslist = [];
 
 //  post data for sell
@@ -277,7 +285,7 @@ class _CreatepageState extends State<Createpage> {
         curentcatergory.isNotEmpty) {
       var client = http.Client();
       var sellboby = {
-        "image": imglinks,
+        "image":imageurl,
         "productname": _productname.text,
         "discription": _productdiscription.text,
         "price": _productprice.text,

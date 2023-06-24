@@ -113,7 +113,7 @@ Future<List<Sellmodel>> freshitemFunction() async {
     Uri.parse(
       "${getreqdataurl}Grocery",
     ),
-    headers: {"Content-Type": "application/json"},
+    headers: {"Content-Type":"application/json"},
   );
   var data = jsonDecode(response.body.toString());
   if (response.statusCode == 200) {

@@ -22,9 +22,7 @@ class DealofDay extends StatelessWidget {
           height: 10,
         ),
         FutureBuilder(
-          initialData: [
-           getdataapi(),
-          ],
+            initialData: const [],
             future: getdataapi(),
             key: const PageStorageKey(InitialRouteListFactory),
             builder: (context, snapshot) {
@@ -32,9 +30,7 @@ class DealofDay extends StatelessWidget {
                 return SizedBox(
                   height: 250,
                   width: 510,
-
                   child: GridView.builder(
-                    
                       primary: false,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -43,12 +39,34 @@ class DealofDay extends StatelessWidget {
                               crossAxisCount: 1,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10),
-                      itemCount:data.length,
+                      itemCount: data.length,
                       itemBuilder: (context, index) {
                         return InkWell(
-                                              onTap: () {
-          Navigator.push(context,MaterialPageRoute(builder:(context)=>Details(id:data[Globalvariable.itemindex].id, catergory:data[Globalvariable.itemindex].catergory, productname:data[Globalvariable.itemindex].productname, discription:data[Globalvariable.itemindex].discription, price:(int.parse(data[Globalvariable.itemindex].price) - (int.parse(data[Globalvariable.itemindex].price) * Globalvariable.discount) / 100).ceil().toString(), qantity:data[Globalvariable.itemindex].qantity, image: data[Globalvariable.itemindex].image)));
-        },
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Details(
+                                        id: data[Globalvariable.itemindex].id,
+                                        catergory: data[Globalvariable.itemindex]
+                                            .catergory,
+                                        productname: data[Globalvariable.itemindex]
+                                            .productname,
+                                        discription: data[Globalvariable.itemindex]
+                                            .discription,
+                                        price: (int.parse(
+                                                    data[Globalvariable.itemindex]
+                                                        .price) -
+                                                (int.parse(data[Globalvariable.itemindex].price) *
+                                                        Globalvariable
+                                                            .discount) /
+                                                    100)
+                                            .ceil()
+                                            .toString(),
+                                        qantity: data[Globalvariable.itemindex]
+                                            .qantity,
+                                        image: data[Globalvariable.itemindex].image)));
+                          },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +80,7 @@ class DealofDay extends StatelessWidget {
                                         imagewidget: Image.file(File(
                                             data[Globalvariable.itemindex]
                                                 .image[0]
-                                                .toString()))),
+                                                ))),
                                   ),
                                   const SizedBox(
                                     width: 5,
@@ -72,11 +90,13 @@ class DealofDay extends StatelessWidget {
                                     width: 186,
                                     decoration: const BoxDecoration(),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text("SPECIAL OFFER",
                                             style: TextStyle(
-                                                fontSize: 20, color: Colors.red)),
+                                                fontSize: 20,
+                                                color: Colors.red)),
                                         Container(
                                           height: 60,
                                           width: 60,
@@ -124,8 +144,8 @@ class DealofDay extends StatelessWidget {
                                           style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w500,
-                                              color:
-                                                  Colors.black.withOpacity(0.6)),
+                                              color: Colors.black
+                                                  .withOpacity(0.6)),
                                         )
                                       ])),
                             ],

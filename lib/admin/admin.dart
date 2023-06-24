@@ -1,7 +1,6 @@
-import 'package:amazon/admin/adminhome/adminhome.dart';
 import 'package:amazon/constans/cons.dart';
 import 'package:flutter/material.dart';
-
+import 'adminhome/adminhome.dart';
 class Adminmainpage extends StatefulWidget {
   const Adminmainpage({super.key});
 
@@ -13,7 +12,7 @@ class _AdminmainpageState extends State<Adminmainpage> {
   List<Widget> items = [
     const Adimhomepage(),
     const Adimhomepage(),
-    const Adimhomepage()
+    const Adimhomepage(),
   ];
   int index = 0;
   @override

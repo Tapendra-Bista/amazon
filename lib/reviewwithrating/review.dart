@@ -90,7 +90,7 @@ class _ReviewandRatingState extends State<ReviewandRating> {
 
   @override
   void initState() {
-    rating;
+ 
     getrating();
     super.initState();
   }

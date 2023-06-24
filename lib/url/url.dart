@@ -9,5 +9,6 @@ const getreqdataurl = "$mainurl/products?catergory=";
 const searchurl ="$mainurl/products/search/";
 const expensiveurl ="$mainurl/expensive";
 const cheapurl ="$mainurl/cheap";
+const carturl ="$mainurl/cart";
 const availableurl ="$mainurl/available";
 const ratingurl ="$mainurl/rating?productid=";

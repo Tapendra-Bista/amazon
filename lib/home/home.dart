@@ -28,11 +28,6 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     speech = stt.SpeechToText();
-    getdataapi();
-    freshitemFunction();
-    expensiveitem();
-    getdataapi();
-    cheapitem();
     super.initState();
   }
 

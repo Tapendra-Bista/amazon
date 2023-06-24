@@ -62,8 +62,7 @@ class _CustomRatingState extends State<CustomRating> {
         ratingget.add(Rating.fromJson(index));
         sum += double.parse(Rating.fromJson(index).rating);
       }
-      debugPrint(sum.toString());
-       debugPrint((sum/ratingget.length).toString());
+    
     }
 
     if (response.statusCode == 404) {
@@ -79,9 +78,7 @@ class _CustomRatingState extends State<CustomRating> {
   double initialrating = 1;
   @override
   void initState() {
-    ratingget;
     getrating();
-
     super.initState();
   }
 
