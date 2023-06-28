@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:amazon/rating/rating.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -73,7 +72,7 @@ class _SearchpageState extends State<Searchpage> {
                                       height: 210,
                                       width: 200,
                                       child: Singleproduct(
-                                          imagewidget: Image.file(File(
+                                          imagewidget: Image.network((
                                               search[index]
                                                   .image[0]
                                                   .toString()))),
@@ -127,11 +126,11 @@ class _SearchpageState extends State<Searchpage> {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text("In Stock",
+                                          Text(int.parse(search[index].qantity).toInt()!=0?"In Stock":"Out Stock",
                                               style: TextStyle(
                                                   fontSize: 19,
-                                                  color: Globalvariable
-                                                      .selectednavbarcolor)),
+                                                  color:int.parse(search[index].qantity).toInt()!=0? Globalvariable
+                                                      .selectednavbarcolor :Colors.red)),
                                         ],
                                       ),
                                       // color: Colors.transparent),

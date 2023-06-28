@@ -7,10 +7,10 @@ import '../url/url.dart';
 // all items
 List<Sellmodel> data = [];
 Future<List<Sellmodel>> getdataapi() async {
-  var client = http.Client();
+
 
   try {
-    var response = await client.get(
+    var response = await http.get(
       Uri.parse(getsellurl),
       headers: {"Content-Type": "application/json"},
     );
@@ -31,10 +31,10 @@ Future<List<Sellmodel>> getdataapi() async {
 // all items
 List<Sellmodel> available = [];
 Future<List<Sellmodel>> getavailabledata() async {
-  var client = http.Client();
+
 
   try {
-    var response = await client.get(
+    var response = await http.get(
       Uri.parse(availableurl),
       headers: {"Content-Type": "application/json"},
     );
@@ -55,10 +55,10 @@ Future<List<Sellmodel>> getavailabledata() async {
 // expensive items
 List expensive = [];
 Future<List> expensiveitem() async {
-  var client = http.Client();
+
 
   try {
-    var response = await client.get(
+    var response = await http.get(
       Uri.parse(expensiveurl),
       headers: {"Content-Type": "application/json"},
     );
@@ -82,10 +82,10 @@ Future<List> expensiveitem() async {
 List<Sellmodel> cheap = [];
 
 Future<List<Sellmodel>> cheapitem() async {
-  var client = http.Client();
+
 
   try {
-    var response = await client.get(
+    var response = await http.get(
       Uri.parse(cheapurl),
       headers: {"Content-Type": "application/json"},
     );
@@ -108,8 +108,8 @@ Future<List<Sellmodel>> cheapitem() async {
 // api
 List<Sellmodel> freshitem = [];
 Future<List<Sellmodel>> freshitemFunction() async {
-  var client = http.Client();
-  var response = await client.get(
+
+  var response = await http.get(
     Uri.parse(
       "${getreqdataurl}Grocery",
     ),

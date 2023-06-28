@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../buycenter/details.dart';
 import '../common/singlepro.dart';
@@ -27,9 +26,10 @@ class _ItemcatoryState extends State<Itemcatory> {
         await Future.delayed(const Duration(seconds: 1));
       },
       child: Container(
-        height: 300,
+        height: expandView ? 1100 : 300,
         width: double.infinity,
-        decoration: const BoxDecoration(color: Colors.green),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: Colors.white),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,26 +43,28 @@ class _ItemcatoryState extends State<Itemcatory> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "${widget.itemscateroryname} items",
+                    widget.itemscateroryname,
                     style: const TextStyle(color: Colors.black, fontSize: 18),
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        if (expandView == false) {
-                          expandView = true;
-                        } else {
-                          expandView = false;
-                        }
-                      });
-                    },
-                    child: Text(
-                      expandView ? "" : "See all items",
-                      style: TextStyle(
-                          color: Globalvariable.selectednavbarcolor,
-                          fontSize: 18),
-                    ),
-                  ),
+                  widget.itemscateroryname.compareTo("YOU MIGHT LIKE THIS") == 0
+                      ? const Row()
+                      : InkWell(
+                          onTap: () {
+                            setState(() {
+                              if (expandView == false) {
+                                expandView = true;
+                              } else {
+                                expandView = false;
+                              }
+                            });
+                          },
+                          child: Text(
+                            expandView ? "" : "See all items",
+                            style: TextStyle(
+                                color: Globalvariable.selectednavbarcolor,
+                                fontSize: 18),
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -80,8 +82,8 @@ class _ItemcatoryState extends State<Itemcatory> {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: expandView ? 2 : 1,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: expandView ? 20 : 10),
+                                  crossAxisSpacing: 0,
+                                  mainAxisSpacing: expandView ? 10 : 0),
                           itemCount: widget.itemcount.length,
                           scrollDirection:
                               expandView ? Axis.vertical : Axis.horizontal,
@@ -116,11 +118,11 @@ class _ItemcatoryState extends State<Itemcatory> {
                                   children: [
                                     SizedBox(
                                       height: expandView ? 150 : 210,
-                                      width: 200,
+                                      width: 215,
                                       child: Singleproduct(
-                                          imagewidget: Image.file(File(widget
-                                              .itemcount[index].image[0],
-                                              ))),
+                                          imagewidget: Image.network(
+                                        widget.itemcount[index].image[0],
+                                      )),
                                     ),
                                     Text(
                                       "price :\$${widget.itemcount[index].price}",

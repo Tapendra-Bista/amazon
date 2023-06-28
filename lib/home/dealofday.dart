@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../buycenter/details.dart';
 import '../common/singlepro.dart';
@@ -77,7 +77,7 @@ class DealofDay extends StatelessWidget {
                                     height: 210,
                                     width: 200,
                                     child: Singleproduct(
-                                        imagewidget: Image.file(File(
+                                        imagewidget: Image.network((
                                             data[Globalvariable.itemindex]
                                                 .image[0]
                                                 ))),

@@ -3,7 +3,7 @@ import 'package:amazon/constans/cons.dart';
 import 'package:amazon/search/search.dart';
 import 'package:flashtoast/flash_toast.dart';
 import 'package:flutter/material.dart';
-import '../catogory/cotogryapp.dart';
+import '../category/cotogryapp.dart';
 import '../common/appbar.dart';
 import 'Carousel.dart';
 import 'customlocation.dart';
@@ -23,7 +23,7 @@ class _HomepageState extends State<Homepage> {
   late stt.SpeechToText speech;
   bool speechEnabled = false;
 
-   TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _HomepageState extends State<Homepage> {
           onResult: (result) => setState(() {
             onchange = result.recognizedWords;
             changepage = result.recognizedWords;
-            controller.text =result.recognizedWords;
+            controller.text = result.recognizedWords;
             debugPrint(result.recognizedWords);
           }),
         );
@@ -200,28 +200,43 @@ class Homepartcustom extends StatelessWidget {
             height: 10,
           ),
           const DealofDay(),
+          const SizedBox(
+            height: 10,
+          ),
           Itemcatory(
-            itemscateroryname: "New",
+            itemscateroryname: "New items",
             future: getdataapi(),
             itemcount: data,
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Itemcatory(
-            itemscateroryname: "Fresh",
+            itemscateroryname: "Fresh items",
             future: freshitemFunction(),
             itemcount: freshitem,
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Itemcatory(
-            itemscateroryname: "Expensive",
+            itemscateroryname: "Expensive items",
             future: expensiveitem(),
             itemcount: expensive,
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Itemcatory(
-            itemscateroryname: "Cheap",
+            itemscateroryname: "Cheap items",
             future: cheapitem(),
             itemcount: cheap,
           ),
+          const SizedBox(
+            height: 10,
+          ),
           Itemcatory(
-            itemscateroryname: "Available",
+            itemscateroryname: "Available items",
             future: getavailabledata(),
             itemcount: available,
           ),

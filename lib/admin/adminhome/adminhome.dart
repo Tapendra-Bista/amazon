@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:amazon/admin/editsell/edit.dart';
 import 'package:amazon/common/flash.dart';
 import 'package:amazon/constans/cons.dart';
@@ -143,22 +142,30 @@ class _AdimhomepageState extends State<Adimhomepage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 154,
-                            width: 180,
+                            height: 150,
+                            width: 183,
                             child: Singleproduct(
-                              imagewidget: Image.file(
-                                File(sellitems[index].image[0]),
-                                fit: BoxFit.fill,
+                              imagewidget: Image.network(
+                                sellitems[index].image[0],
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: Text(
-                              "\$${sellitems[index].price}  ${sellitems[index].productname}",
-                              maxLines: 2,
-                            ),
-                          )
+                              padding: const EdgeInsets.only(left: 5),
+                              child: RichText(
+                                  maxLines: 2,
+                                  text: TextSpan(
+                                      text: "\$${sellitems[index].price}\t",
+                                      style: TextStyle(
+                                          color: Globalvariable
+                                              .selectednavbarcolor),
+                                      children: [
+                                        TextSpan(
+                                          text: sellitems[index].productname,
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                        )
+                                      ])))
                         ],
                       ),
                     ),
@@ -193,10 +200,8 @@ class _AdimhomepageState extends State<Adimhomepage> {
           // loop
           sellitems.add(Sellmodel.fromJson(index));
         }
-      
-      } 
+      }
       sellitems.toSet();
-    
     } catch (error) {
       debugPrint(error.toString());
     }

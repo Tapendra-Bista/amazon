@@ -160,7 +160,7 @@ class _CreatepageState extends State<Createpage> {
               Customtextfield(
                   keyboardtype: TextInputType.number,
                   controller: _productqantity,
-                  myhint: "Qantity",
+                  myhint: "Quantity",
                   boolvalue: false),
               const SizedBox(
                 height: 15,
@@ -261,7 +261,6 @@ class _CreatepageState extends State<Createpage> {
             folder:"flutter amazon/images"
           ),
           uploadPreset: "s580a5rg",
-          
           );
           imageurl.add(response.secureUrl);
         }

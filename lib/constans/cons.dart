@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Globalvariable {
   static var discount = 99;
-  static var itemindex = 11;
+  static var itemindex = 91;
 // colors
   static const appbargradient = LinearGradient(colors: [
     Color.fromARGB(255, 29, 201, 192),

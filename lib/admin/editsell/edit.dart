@@ -179,9 +179,9 @@ class _EditsellState extends State<Editsell> {
               Custommaterialbutton(
                   width: double.infinity,
                   function: () {
-                    setState(() {
+                   
                       patchsell(context);
-                    });
+                   
                   },
                   name: 'Edit',
                   color: Globalvariable.secondarycolor,
@@ -234,9 +234,5 @@ class _EditsellState extends State<Editsell> {
     }
   }
 
-  @override
-  void initState() {
-    patchsell(context);
-    super.initState();
-  }
+
 }

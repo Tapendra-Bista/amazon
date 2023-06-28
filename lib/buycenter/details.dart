@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:amazon/common/expandtextfield.dart';
 import 'package:amazon/common/flash.dart';
 import 'package:amazon/common/materialb.dart';
 import 'package:amazon/constans/cons.dart';
-import 'package:amazon/rating/rating.dart';
 import 'package:amazon/url/url.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flashtoast/flash_toast.dart';
@@ -14,9 +12,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../common/appbar.dart';
 import '../divider/divider.dart';
 import 'package:http/http.dart' as http;
+import '../home/items.dart';
+import '../model/sell.dart';
+import '../rating/rating.dart';
 import '../reviewwithrating/review.dart';
 import '../search/search.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:share_plus/share_plus.dart';
 
 class Details extends StatefulWidget {
   const Details(
@@ -41,7 +43,28 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  int qauntity = 0;
+  int quantity = 1;
+  Future addcart() async {
+    var bodypart = {
+      "productname": widget.productname,
+      "usermail": "tapendrabista",
+      "image": widget.image,
+      "discription": widget.discription,
+      "price": widget.price,
+      "qantity": widget.qantity,
+      "catergory": widget.catergory,
+      "cartqauntity": quantity.toString()
+    };
+    var response = await http.post(
+      Uri.parse(carturl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(bodypart),
+    );
+    if (response.statusCode == 200) {
+    
+    }
+  }
+
   TextEditingController controller = TextEditingController();
   late stt.SpeechToText speech;
   bool enablespeech = false;
@@ -204,16 +227,21 @@ class _DetailsState extends State<Details> {
                           widget.id,
                           style: TextStyle(
                               letterSpacing: 0.1,
-                              fontSize: 16,
+                              fontSize: 14,
                               color: Colors.black.withOpacity(0.6)),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: CustomRating(
-                            productid: widget.id,
-                            size: 22.6,
-                          ),
-                        )
+                        Container(
+                            height: 25,
+                            width: 170,
+                            decoration:
+                                const BoxDecoration(color: Colors.transparent),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 40),
+                              child: CustomRating(
+                                productid: widget.id,
+                                size: 20,
+                              ),
+                            ))
                       ],
                     ),
                     const SizedBox(
@@ -229,6 +257,21 @@ class _DetailsState extends State<Details> {
                     ),
                     const SizedBox(
                       height: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 280),
+                      child: IconButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            shared();
+                          },
+                          icon: const Icon(
+                            Icons.share,
+                            color: Colors.black,
+                          )),
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     Container(
                         height: 300,
@@ -247,7 +290,7 @@ class _DetailsState extends State<Details> {
                               });
                             },
                             itemBuilder: (BuildContext context, int index) {
-                              return Image.file(File(widget.image[imageindex]));
+                              return Image.network((widget.image[imageindex]));
                             },
                             itemCount: widget.image.length,
                             pagination: const SwiperPagination(),
@@ -274,6 +317,25 @@ class _DetailsState extends State<Details> {
                                   fontWeight: FontWeight.w700,
                                   wordSpacing: 1)),
                           TextSpan(
+                            text: "\nTotal quantity : ${widget.qantity}",
+                            style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                wordSpacing: 1),
+                          ),
+                          TextSpan(
+                              text: int.parse(widget.qantity).toInt() == 0
+                                  ? "\nOut Stock"
+                                  : "\nIn Stock",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: int.parse(widget.qantity).toInt() == 0
+                                      ? Colors.red
+                                      : Globalvariable.selectednavbarcolor,
+                                  fontWeight: FontWeight.w700,
+                                  wordSpacing: 1)),
+                          TextSpan(
                               text: "\n\n${widget.discription}",
                               style: TextStyle(
                                   fontSize: 16,
@@ -297,9 +359,9 @@ class _DetailsState extends State<Details> {
                     Custommaterialbutton(
                         width: double.infinity,
                         function: () {
+                          addcart();
                           setState(() {
-                            postcart();
-                            qauntity = qauntity++;
+                            quantity++;
                           });
                         },
                         name: "Add to Cart",
@@ -381,44 +443,19 @@ class _DetailsState extends State<Details> {
                     const SizedBox(
                       height: 30,
                     ),
+                    Itemcatory(
+                      itemscateroryname: "YOU MIGHT LIKE THIS",
+                      future: similaritemsFunction(),
+                      itemcount: similaritems,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
                   ],
                 ),
         ),
       ),
     );
-  }
-
-// to add item in cart
-  Future postcart() async {
-    var body = {
-      "productname": widget.productname,
-      "usermail": "tapendrabista01@gmail.com",
-      "image": widget.image,
-      "discription": widget.discription,
-      "price": widget.price,
-      "qantity": widget.qantity,
-      "catergory": widget.catergory,
-      "cartqauntity": qauntity.toString(),
-    };
-
-    var client = http.Client();
-    try {
-      var response = await client.patch(
-        Uri.parse(carturl),
-        headers: {"Content-Type": "applicaton/json"},
-        body: jsonEncode(body),
-      );
-
-      var jsresponse = jsonDecode(response.body.toString());
-      if (response.statusCode == 200) {
-        debugPrint(jsresponse['messgae']);
-      }
-      if (response.statusCode == 201) {
-        debugPrint(jsresponse['messgae']);
-      }
-    } catch (error) {
-      debugPrint(" error in cart ,$error");
-    }
   }
 
   late var productid = widget.id;
@@ -442,8 +479,7 @@ class _DetailsState extends State<Details> {
         "review": _reviewgive.text,
       };
       try {
-        var client = http.Client();
-        var response = await client.post(Uri.parse(ratingurl),
+        var response = await http.post(Uri.parse(ratingurl),
             body: jsonEncode(body),
             headers: {"Content-Type": "application/json"});
         if (response.statusCode == 200) {
@@ -461,5 +497,29 @@ class _DetailsState extends State<Details> {
       flashfunction(context, "Invalid", "at least one rating with review",
           FlashType.error);
     }
+  }
+
+  // we might like this
+  List<Sellmodel> similaritems = [];
+  Future<List<Sellmodel>> similaritemsFunction() async {
+    var url = "$getreqdataurl${widget.catergory}";
+    var response = await http.get(
+      Uri.parse(url),
+      headers: {"Content-Type": "application/json"},
+    );
+    var data = jsonDecode(response.body.toString());
+    if (response.statusCode == 200) {
+      for (Map<String, dynamic> index in data) {
+        similaritems.add(Sellmodel.fromJson(index));
+      }
+    }
+    similaritems.toSet();
+    return similaritems;
+  }
+
+  Future shared() async {
+    await Share.share(
+        "\n${widget.productname}\n\n ${widget.image}\n\n ${widget.discription}",
+        subject: "share");
   }
 }

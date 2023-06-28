@@ -73,10 +73,10 @@ class _ReviewandRatingState extends State<ReviewandRating> {
   List<Rating> rating = [];
 
   Future<List<Rating>> getrating() async {
-    var client = http.Client();
-    var response = await client.get(
+  
+    var response = await http.get(
       Uri.parse("$ratingurl${widget.productid}"),
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type":"application/json"},
     );
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
@@ -88,10 +88,5 @@ class _ReviewandRatingState extends State<ReviewandRating> {
     return rating;
   }
 
-  @override
-  void initState() {
  
-    getrating();
-    super.initState();
-  }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon/constans/cons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
@@ -21,24 +22,38 @@ class _CustomRatingState extends State<CustomRating> {
             future: getrating(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return SizedBox(
+                return Container(
                   height: 25,
-                  width: 124,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(color: Colors.transparent),
                   child: ListView.builder(
                       itemCount: 1,
                       primary: false,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return RatingBarIndicator(
-                          rating: sum / ratingget.length,
-                          itemBuilder: (context, index) => const Icon(
-                            Icons.star,
-                            color: Color.fromRGBO(255, 193, 7, 1),
-                          ),
-                          itemCount: 5,
-                          itemSize: widget.size,
-                          direction: Axis.horizontal,
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            RatingBarIndicator(
+                              rating: sum / ratingget.length,
+                              itemBuilder: (context, index) => const Icon(
+                                Icons.star,
+                                color: Color.fromRGBO(255, 193, 7, 1),
+                              ),
+                              itemCount: 5,
+                              itemSize: widget.size,
+                              direction: Axis.horizontal,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "$totalitem",
+                              style: TextStyle(
+                                  color: Globalvariable.selectednavbarcolor),
+                            ),
+                          ],
                         );
                       }),
                 );
@@ -62,7 +77,6 @@ class _CustomRatingState extends State<CustomRating> {
         ratingget.add(Rating.fromJson(index));
         sum += double.parse(Rating.fromJson(index).rating);
       }
-    
     }
 
     if (response.statusCode == 404) {

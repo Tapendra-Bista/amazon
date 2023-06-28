@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:amazon/model/sell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +98,7 @@ class _ViewscreenState extends State<Viewscreen> {
                                 height: 141,
                                 width: double.infinity,
                                 child: Singleproduct(
-                                    imagewidget: Image.file(File(
+                                    imagewidget: Image.network((
                                         reqdata[index].image[0].toString()))),
                               ),
                               Text(
