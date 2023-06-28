@@ -23,6 +23,7 @@ class _SearchpageState extends State<Searchpage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
         responsestring != null
             ? Center(
                 child: Padding(
@@ -183,7 +184,9 @@ class _SearchpageState extends State<Searchpage> {
         }
       }
       if (response.statusCode == 404) {
-        responsestring = data['message'];
+       setState(() {
+          responsestring = data['message'];
+       });
         debugPrint(responsestring.toString());
       }
     } catch (error) {

@@ -16,7 +16,7 @@ class Cartmodel {
     String price;
     String qantity;
     String catergory;
-    String cartqauntity;
+    int cartqauntity;
 
     Cartmodel({
         required this.id,

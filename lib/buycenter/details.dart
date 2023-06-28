@@ -53,15 +53,14 @@ class _DetailsState extends State<Details> {
       "price": widget.price,
       "qantity": widget.qantity,
       "catergory": widget.catergory,
-      "cartqauntity": quantity.toString()
+      "cartqauntity": quantity,
     };
-    var response = await http.post(
+    var response = await http.patch(
       Uri.parse(carturl),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(bodypart),
     );
-    if (response.statusCode == 200) {
-    
+    if (response.statusCode == 200) { 
     }
   }
 

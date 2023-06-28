@@ -80,9 +80,12 @@ class _CustomRatingState extends State<CustomRating> {
     }
 
     if (response.statusCode == 404) {
-      setState(() {
-        initialrating = double.parse(data['rate']);
-      });
+
+        setState(() {
+            initialrating = double.parse(data['rate']);
+        });
+    
+   
     }
 
     return ratingget;
@@ -90,11 +93,8 @@ class _CustomRatingState extends State<CustomRating> {
 
   late var totalitem = ratingget.length;
   double initialrating = 1;
-  @override
-  void initState() {
-    getrating();
-    super.initState();
-  }
+
+
 
   double sum = 0;
   double averagerate = 0;

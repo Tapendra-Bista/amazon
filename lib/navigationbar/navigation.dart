@@ -74,7 +74,7 @@ class _ViewpageuserState extends State<Viewpageuser> {
                                   : Globalvariable.backgroundcolor,
                               width: 5))),
                   child: const badges.Badge(
-                      badgeContent: Text("3"),
+                      badgeContent:Text("3"),
                       badgeStyle:
                           badges.BadgeStyle(badgeColor: Colors.transparent),
                       child: Icon(Icons.shopping_cart_outlined)),
