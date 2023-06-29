@@ -81,9 +81,11 @@ class _CustomRatingState extends State<CustomRating> {
 
     if (response.statusCode == 404) {
 
+     
         setState(() {
-            initialrating = double.parse(data['rate']);
+          initialrating = double.parse(data['rate']);
         });
+  
     
    
     }

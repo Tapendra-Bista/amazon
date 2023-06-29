@@ -62,7 +62,7 @@ class _SearchpageState extends State<Searchpage> {
                                               discription:
                                                   search[index].discription,
                                               price: search[index].price,
-                                              qantity: search[index].qantity,
+                                              quantity: search[index].qantity,
                                               image: search[index].image)));
                                 },
                                 child: Row(

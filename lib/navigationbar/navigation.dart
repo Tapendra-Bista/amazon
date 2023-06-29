@@ -1,11 +1,9 @@
-import 'package:amazon/card/card.dart';
+import 'package:amazon/cart/card.dart';
 import 'package:amazon/constans/cons.dart';
 import 'package:amazon/home/home.dart';
 import 'package:amazon/person/person.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
-
-
 
 class Viewpageuser extends StatefulWidget {
   const Viewpageuser({super.key});
@@ -73,11 +71,13 @@ class _ViewpageuserState extends State<Viewpageuser> {
                                   ? Globalvariable.selectednavbarcolor
                                   : Globalvariable.backgroundcolor,
                               width: 5))),
-                  child: const badges.Badge(
-                      badgeContent:Text("3"),
-                      badgeStyle:
-                          badges.BadgeStyle(badgeColor: Colors.transparent),
-                      child: Icon(Icons.shopping_cart_outlined)),
+                  child:cartproductnumber==null
+                      ? const Icon(Icons.shopping_cart_outlined)
+                      : badges.Badge(
+                          badgeContent: Text(cartproductnumber.toString()),
+                          badgeStyle: const badges.BadgeStyle(
+                              badgeColor: Colors.transparent),
+                          child: const Icon(Icons.shopping_cart_outlined)),
                 ))
           ]),
     );

@@ -1,24 +1,25 @@
 import 'dart:convert';
+import 'package:amazon/buycenter/textlist.dart';
+import 'package:amazon/buycenter/upperpart.dart';
 import 'package:amazon/common/expandtextfield.dart';
 import 'package:amazon/common/flash.dart';
 import 'package:amazon/common/materialb.dart';
 import 'package:amazon/constans/cons.dart';
 import 'package:amazon/url/url.dart';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flashtoast/flash_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../common/appbar.dart';
 import '../divider/divider.dart';
 import 'package:http/http.dart' as http;
 import '../home/items.dart';
 import '../model/sell.dart';
-import '../rating/rating.dart';
 import '../reviewwithrating/review.dart';
 import '../search/search.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:share_plus/share_plus.dart';
+import 'giverate.dart';
+import 'image.dart';
 
 class Details extends StatefulWidget {
   const Details(
@@ -28,7 +29,7 @@ class Details extends StatefulWidget {
       required this.productname,
       required this.discription,
       required this.price,
-      required this.qantity,
+      required this.quantity,
       required this.image});
 
   final List<String> image;
@@ -37,7 +38,7 @@ class Details extends StatefulWidget {
   final String productname;
   final String discription;
   final String price;
-  final String qantity;
+  final String quantity;
   @override
   State<Details> createState() => _DetailsState();
 }
@@ -51,7 +52,7 @@ class _DetailsState extends State<Details> {
       "image": widget.image,
       "discription": widget.discription,
       "price": widget.price,
-      "qantity": widget.qantity,
+      "qantity": widget.quantity,
       "catergory": widget.catergory,
       "cartqauntity": quantity,
     };
@@ -60,8 +61,7 @@ class _DetailsState extends State<Details> {
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(bodypart),
     );
-    if (response.statusCode == 200) { 
-    }
+    if (response.statusCode == 200) {}
   }
 
   TextEditingController controller = TextEditingController();
@@ -219,30 +219,10 @@ class _DetailsState extends State<Details> {
                     const SizedBox(
                       height: 5,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.id,
-                          style: TextStyle(
-                              letterSpacing: 0.1,
-                              fontSize: 14,
-                              color: Colors.black.withOpacity(0.6)),
-                        ),
-                        Container(
-                            height: 25,
-                            width: 170,
-                            decoration:
-                                const BoxDecoration(color: Colors.transparent),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 40),
-                              child: CustomRating(
-                                productid: widget.id,
-                                size: 20,
-                              ),
-                            ))
-                      ],
-                    ),
+               Upperpartdetails(
+           id: widget.id,
+           productid: productid,     
+               ),
                     const SizedBox(
                       height: 40,
                     ),
@@ -272,75 +252,18 @@ class _DetailsState extends State<Details> {
                     const SizedBox(
                       height: 5,
                     ),
-                    Container(
-                        height: 300,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                            color: Colors.white, boxShadow: []),
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          height: 300,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(color: Colors.white),
-                          child: Swiper(
-                            onIndexChanged: (value) {
-                              setState(() {
-                                imageindex = value;
-                              });
-                            },
-                            itemBuilder: (BuildContext context, int index) {
-                              return Image.network((widget.image[imageindex]));
-                            },
-                            itemCount: widget.image.length,
-                            pagination: const SwiperPagination(),
-                          ),
-                        )),
+                    Swipewithimage(
+                      image: widget.image,
+                    ),
                     const Customdivider(),
                     const SizedBox(
                       height: 20,
                     ),
-                    RichText(
-                        text: TextSpan(
-                            text: "Deal Price:",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                wordSpacing: 1),
-                            children: [
-                          TextSpan(
-                              text: " \$${widget.price}",
-                              style: const TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.w700,
-                                  wordSpacing: 1)),
-                          TextSpan(
-                            text: "\nTotal quantity : ${widget.qantity}",
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                                wordSpacing: 1),
-                          ),
-                          TextSpan(
-                              text: int.parse(widget.qantity).toInt() == 0
-                                  ? "\nOut Stock"
-                                  : "\nIn Stock",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: int.parse(widget.qantity).toInt() == 0
-                                      ? Colors.red
-                                      : Globalvariable.selectednavbarcolor,
-                                  fontWeight: FontWeight.w700,
-                                  wordSpacing: 1)),
-                          TextSpan(
-                              text: "\n\n${widget.discription}",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black.withOpacity(0.7),
-                                  wordSpacing: 1)),
-                        ])),
+                    Textdata(
+                      discription: widget.discription,
+                      price: widget.price,
+                      quantity: widget.quantity,
+                    ),
                     const Customdivider(),
                     const SizedBox(
                       height: 10,
@@ -359,9 +282,6 @@ class _DetailsState extends State<Details> {
                         width: double.infinity,
                         function: () {
                           addcart();
-                          setState(() {
-                            quantity++;
-                          });
                         },
                         name: "Add to Cart",
                         color: Colors.yellow.shade500,
@@ -379,27 +299,14 @@ class _DetailsState extends State<Details> {
                             fontSize: 19, fontWeight: FontWeight.w600),
                       ),
                     ),
-                    RatingBar.builder(
-                        tapOnlyMode: true,
-                        itemPadding: const EdgeInsets.only(top: 5),
-                        initialRating: rate,
-                        maxRating: 5,
-                        minRating: 1,
-                        itemSize: 28,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        unratedColor: Colors.grey,
-                        itemBuilder: (context, index) {
-                          return const Icon(
-                            Icons.star_outlined,
-                            color: Colors.amber,
-                          );
-                        },
-                        onRatingUpdate: (change) {
-                          setState(() {
-                            rate = change;
-                          });
-                        }),
+                    Giverate(
+                      rate: rate,
+                      onratingupdate: (change) {
+                        setState(() {
+                          rate = change;
+                        });
+                      },
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -466,7 +373,6 @@ class _DetailsState extends State<Details> {
 
   final TextEditingController _reviewgive = TextEditingController();
   double rate = 0;
-  int imageindex = 0;
 
   // api for rating
   Future ratingfunction(context) async {
@@ -522,3 +428,4 @@ class _DetailsState extends State<Details> {
         subject: "share");
   }
 }
+

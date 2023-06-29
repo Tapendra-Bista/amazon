@@ -88,7 +88,7 @@ class _ViewscreenState extends State<Viewscreen> {
                       itemBuilder: (context, index) {
                         return InkWell(
                              onTap: () {
-          Navigator.push(context,MaterialPageRoute(builder:(context)=>Details(id:reqdata[index].id, catergory:reqdata[index].catergory, productname:reqdata[index].productname, discription:reqdata[index].discription, price:reqdata[index].price, qantity:reqdata[index].qantity, image: reqdata[index].image)));
+          Navigator.push(context,MaterialPageRoute(builder:(context)=>Details(id:reqdata[index].id, catergory:reqdata[index].catergory, productname:reqdata[index].productname, discription:reqdata[index].discription, price:reqdata[index].price, quantity:reqdata[index].qantity, image: reqdata[index].image)));
         },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,

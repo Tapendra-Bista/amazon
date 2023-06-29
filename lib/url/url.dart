@@ -12,3 +12,5 @@ const cheapurl ="$mainurl/cheap";
 const carturl ="$mainurl/cart";
 const availableurl ="$mainurl/available";
 const ratingurl ="$mainurl/rating?productid=";
+const incrementurl ="$mainurl/increment";
+const decrementurl ="$mainurl/decrement";
