@@ -9,6 +9,7 @@ import '../common/flash.dart';
 import 'package:http/http.dart' as http;
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../home/customlocation.dart';
+import '../search/search.dart';
 import 'cartmain.dart';
 
 int? cartproductnumber;
@@ -27,11 +28,11 @@ class _CardpageState extends State<Cardpage> {
   TextEditingController controller = TextEditingController();
   @override
   void initState() {
-    speech = stt.SpeechToText();
-    cartproductnumber;
-    cartproductFunction();
-
     super.initState();
+    speech = stt.SpeechToText();
+    cartproductFunction();
+    cartproduct;
+    makerequal(sum, cartproduct.length);
   }
 
   onListen(context) async {
@@ -157,20 +158,42 @@ class _CardpageState extends State<Cardpage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Customlocation(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Upperpart(
-                  function: () {},
-                  totalamout: "\t\$$sum",
-                ),
-                Maindata(
-                  future: cartproductFunction(),
-                  itemcount: cartproduct,
-                ),
-              ],
-            ),
+            changepage != null
+                ? Searchpage(
+                    searchitem: onchange ?? "",
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      responsestring2 != null ||
+                              cartproductnumber == 0 ||
+                              cartproductnumber == null ||
+                              cartproduct.isEmpty
+                          ? const Padding(
+                              padding: EdgeInsets.only(top: 300, left: 100),
+                              child: Text(
+                                " Add Products in a cart!",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Upperpart(
+                                  number: cartproduct.length,
+                                  function: () {},
+                                  totalamout: "\t\$$sum",
+                                ),
+                                Maindata(
+                                  future: cartproductFunction(),
+                                  itemcount: cartproduct,
+                                ),
+                              ],
+                            ),
+                    ],
+                  ),
           ],
         ),
       ),
@@ -196,23 +219,32 @@ class _CardpageState extends State<Cardpage> {
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in data) {
-
         sum += int.parse(Cartmodel.fromJson(index).price) *
             Cartmodel.fromJson(index).cartqauntity;
-      
+
         cartproduct.add(Cartmodel.fromJson(index));
       }
-    
     }
     if (response.statusCode == 404) {
-      responsestring2 = data['message'];
+      setState(() {
+        responsestring2 = data['message'];
+      });
 
       debugPrint(" this for cart response${responsestring2.toString()}");
     }
+    makerequal(sum, cartproduct.length);
+    debugPrint(" total sum is $sum");
+    debugPrint(" total cart number is $cartproductnumber");
 
-    cartproductnumber = cartproduct.length;
-   
     return cartproduct;
   }
- 
+
+  makerequal(int x, int y) {
+   setState(() {
+      totalsum = x;
+    cartproductnumber = y;
+   });
+  }
+
+  int? totalsum;
 }

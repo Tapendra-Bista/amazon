@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-
 import '../common/materialb.dart';
-import 'card.dart';
 
 class Upperpart extends StatelessWidget {
-  const Upperpart({super.key, required this.totalamout, required this.function});
+  const Upperpart(
+      {super.key,
+      required this.totalamout,
+      required this.function,
+      required this.number});
   final String totalamout;
   final Function() function;
+  final int number;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,7 +39,7 @@ class Upperpart extends StatelessWidget {
           child: Custommaterialbutton(
               width: 380,
               function: function,
-              name: "Proceed to Buy ($cartproductnumber items)",
+              name: "Proceed to Buy ($number items)",
               color: Colors.amber,
               borderclr: Colors.black,
               radius: 8),

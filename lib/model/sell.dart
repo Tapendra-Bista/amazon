@@ -14,7 +14,7 @@ class Sellmodel {
     String productname;
     String discription;
     String price;
-    String qantity;
+    String quantity;
     String catergory;
  
 
@@ -24,7 +24,7 @@ class Sellmodel {
         required this.productname,
         required this.discription,
         required this.price,
-        required this.qantity,
+        required this.quantity,
         required this.catergory,
      
     });
@@ -35,7 +35,7 @@ class Sellmodel {
         productname: json["productname"],
         discription: json["discription"],
         price: json["price"],
-        qantity: json["qantity"],
+        quantity: json["quantity"],
         catergory: json["catergory"],
       
     );
@@ -46,7 +46,7 @@ class Sellmodel {
         "productname": productname,
         "discription": discription,
         "price": price,
-        "qantity": qantity,
+        "quantity": quantity,
         "catergory": catergory,
        
     };

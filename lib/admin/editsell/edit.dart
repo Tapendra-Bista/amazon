@@ -16,13 +16,13 @@ class Editsell extends StatefulWidget {
       {super.key,
       required this.itemname,
       required this.itemprice,
-      required this.itemqantity,
+      required this.itemquantity,
       required this.itemdiscription,
       required this.id});
 
   final String itemname;
   final String itemprice;
-  final String itemqantity;
+  final String itemquantity;
   final String itemdiscription;
   final String id;
   @override
@@ -125,10 +125,10 @@ class _EditsellState extends State<Editsell> {
               Customfieldwithinitialvalue(
                   onChanged: (String value) {
                     setState(() {
-                      newqantity = value;
+                      newquantity = value;
                     });
                   },
-                  initalvalue: widget.itemqantity,
+                  initalvalue: widget.itemquantity,
                   keyboardtype: TextInputType.number,
                   boolvalue: false),
               const SizedBox(
@@ -209,14 +209,14 @@ class _EditsellState extends State<Editsell> {
   String newname = "";
   String newprice = "";
   String newdiscription = "";
-  String newqantity = "";
+  String newquantity = "";
   Future patchsell(context) async {
     var client = http.Client();
     var sellboby = {
       "productname": newname,
       "discription": newdiscription,
       "price": newprice,
-      "qantity": newqantity,
+      "quantity": newquantity,
       "catergory": curentcatergory,
     };
     var response = await client.patch(

@@ -14,7 +14,7 @@ class Cartmodel {
     String productname;
     String discription;
     String price;
-    String qantity;
+    String quantity;
     String catergory;
     int cartqauntity;
 
@@ -24,7 +24,7 @@ class Cartmodel {
         required this.productname,
         required this.discription,
         required this.price,
-        required this.qantity,
+        required this.quantity,
         required this.catergory,
         required this.cartqauntity,
     });
@@ -35,7 +35,7 @@ class Cartmodel {
         productname: json["productname"],
         discription: json["discription"],
         price: json["price"],
-        qantity: json["qantity"],
+        quantity: json["quantity"],
         catergory: json["catergory"],
         cartqauntity: json["cartqauntity"],
     );
@@ -46,7 +46,7 @@ class Cartmodel {
         "productname": productname,
         "discription": discription,
         "price": price,
-        "qantity": qantity,
+        "quantity": quantity,
         "catergory": catergory,
         "cartqauntity": cartqauntity,
     };

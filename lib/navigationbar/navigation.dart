@@ -71,7 +71,7 @@ class _ViewpageuserState extends State<Viewpageuser> {
                                   ? Globalvariable.selectednavbarcolor
                                   : Globalvariable.backgroundcolor,
                               width: 5))),
-                  child:cartproductnumber==null
+                  child:cartproductnumber==null||cartproductnumber==0
                       ? const Icon(Icons.shopping_cart_outlined)
                       : badges.Badge(
                           badgeContent: Text(cartproductnumber.toString()),

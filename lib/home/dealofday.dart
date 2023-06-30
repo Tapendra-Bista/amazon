@@ -64,7 +64,7 @@ class DealofDay extends StatelessWidget {
                                             .ceil()
                                             .toString(),
                                         quantity: data[Globalvariable.itemindex]
-                                            .qantity,
+                                            .quantity,
                                         image: data[Globalvariable.itemindex].image)));
                           },
                           child: Column(

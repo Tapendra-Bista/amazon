@@ -52,7 +52,7 @@ class _DetailsState extends State<Details> {
       "image": widget.image,
       "discription": widget.discription,
       "price": widget.price,
-      "qantity": widget.quantity,
+      "quantity": widget.quantity,
       "catergory": widget.catergory,
       "cartqauntity": quantity,
     };

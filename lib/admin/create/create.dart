@@ -159,7 +159,7 @@ class _CreatepageState extends State<Createpage> {
               ),
               Customtextfield(
                   keyboardtype: TextInputType.number,
-                  controller: _productqantity,
+                  controller: _productquantity,
                   myhint: "Quantity",
                   boolvalue: false),
               const SizedBox(
@@ -227,7 +227,7 @@ class _CreatepageState extends State<Createpage> {
 
   final TextEditingController _productdiscription = TextEditingController();
   final TextEditingController _productprice = TextEditingController();
-  final TextEditingController _productqantity = TextEditingController();
+  final TextEditingController _productquantity = TextEditingController();
   final TextEditingController _productname = TextEditingController();
   String curentcatergory = "Catergory";
   List<String> category = [
@@ -280,7 +280,7 @@ class _CreatepageState extends State<Createpage> {
         _productdiscription.text.isNotEmpty &&
         _productname.text.isNotEmpty &&
         _productprice.text.isNotEmpty &&
-        _productqantity.text.isNotEmpty &&
+        _productquantity.text.isNotEmpty &&
         curentcatergory.isNotEmpty) {
       var client = http.Client();
       var sellboby = {
@@ -288,7 +288,7 @@ class _CreatepageState extends State<Createpage> {
         "productname": _productname.text,
         "discription": _productdiscription.text,
         "price": _productprice.text,
-        "qantity": _productqantity.text,
+        "quantity": _productquantity.text,
         "catergory": curentcatergory,
       };
       try {
@@ -302,7 +302,7 @@ class _CreatepageState extends State<Createpage> {
           imageslist.clear();
           _productdiscription.clear();
           _productname.clear();
-          _productqantity.clear();
+          _productquantity.clear();
           category.clear();
           _productprice.clear();
 

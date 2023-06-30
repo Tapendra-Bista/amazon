@@ -108,7 +108,7 @@ class _ItemcatoryState extends State<Itemcatory> {
                                               price:
                                                   widget.itemcount[index].price,
                                               quantity: widget
-                                                  .itemcount[index].qantity,
+                                                  .itemcount[index].quantity,
                                               image: widget
                                                   .itemcount[index].image)));
                                 },

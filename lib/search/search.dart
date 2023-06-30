@@ -62,7 +62,7 @@ class _SearchpageState extends State<Searchpage> {
                                               discription:
                                                   search[index].discription,
                                               price: search[index].price,
-                                              quantity: search[index].qantity,
+                                              quantity: search[index].quantity,
                                               image: search[index].image)));
                                 },
                                 child: Row(
@@ -127,10 +127,10 @@ class _SearchpageState extends State<Searchpage> {
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          Text(int.parse(search[index].qantity).toInt()!=0?"In Stock":"Out Stock",
+                                          Text(int.parse(search[index].quantity).toInt()!=0?"In Stock":"Out Stock",
                                               style: TextStyle(
                                                   fontSize: 19,
-                                                  color:int.parse(search[index].qantity).toInt()!=0? Globalvariable
+                                                  color:int.parse(search[index].quantity).toInt()!=0? Globalvariable
                                                       .selectednavbarcolor :Colors.red)),
                                         ],
                                       ),

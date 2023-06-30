@@ -97,10 +97,10 @@ class _AdimhomepageState extends State<Adimhomepage> {
                                                                   sellitems[
                                                                           index]
                                                                       .price,
-                                                              itemqantity:
+                                                              itemquantity:
                                                                   sellitems[
                                                                           index]
-                                                                      .qantity,
+                                                                      .quantity,
                                                               itemdiscription:
                                                                   sellitems[
                                                                           index]

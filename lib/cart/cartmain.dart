@@ -8,10 +8,16 @@ import '../url/url.dart';
 import 'cartbutton.dart';
 import 'package:http/http.dart' as http;
 
-class Maindata extends StatelessWidget {
+class Maindata extends StatefulWidget {
   const Maindata({super.key, required this.future, required this.itemcount});
   final Future<List> future;
   final List itemcount;
+
+  @override
+  State<Maindata> createState() => _MaindataState();
+}
+
+class _MaindataState extends State<Maindata> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,7 +25,7 @@ class Maindata extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FutureBuilder(
-            future: future,
+            future: widget.future,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return SizedBox(
@@ -29,7 +35,7 @@ class Maindata extends StatelessWidget {
                       primary: false,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: itemcount.length,
+                      itemCount: widget.itemcount.length,
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
                         return Padding(
@@ -44,16 +50,19 @@ class Maindata extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => Details(
-                                              id: itemcount[index].id,
-                                              catergory:
-                                                  itemcount[index].catergory,
-                                              productname:
-                                                  itemcount[index].productname,
-                                              discription:
-                                                  itemcount[index].discription,
-                                              price: itemcount[index].price,
-                                              quantity: itemcount[index].qantity,
-                                              image: itemcount[index].image)));
+                                              id: widget.itemcount[index].id,
+                                              catergory: widget
+                                                  .itemcount[index].catergory,
+                                              productname: widget
+                                                  .itemcount[index].productname,
+                                              discription: widget
+                                                  .itemcount[index].discription,
+                                              price:
+                                                  widget.itemcount[index].price,
+                                              quantity: widget
+                                                  .itemcount[index].quantity,
+                                              image: widget
+                                                  .itemcount[index].image)));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -63,10 +72,9 @@ class Maindata extends StatelessWidget {
                                       height: 210,
                                       width: 200,
                                       child: Singleproduct(
-                                          imagewidget: Image.network(
-                                              (itemcount[index]
-                                                  .image[0]
-                                                  .toString()))),
+                                          imagewidget: Image.network((widget
+                                              .itemcount[index].image[0]
+                                              .toString()))),
                                     ),
                                     Container(
                                       height: 210,
@@ -86,7 +94,7 @@ class Maindata extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            itemcount[index].productname,
+                                            widget.itemcount[index].productname,
                                             style: TextStyle(
                                                 fontSize: 19,
                                                 color: Colors.black
@@ -97,14 +105,15 @@ class Maindata extends StatelessWidget {
                                             height: 5,
                                           ),
                                           CustomRating(
-                                            productid: itemcount[index].id,
+                                            productid:
+                                                widget.itemcount[index].id,
                                             size: 25,
                                           ),
                                           const SizedBox(
                                             height: 5,
                                           ),
                                           Text(
-                                            "\$${itemcount[index].price}",
+                                            "\$${widget.itemcount[index].price}",
                                             style: const TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.black,
@@ -122,17 +131,18 @@ class Maindata extends StatelessWidget {
                                             height: 5,
                                           ),
                                           Text(
-                                              int.parse(itemcount[index]
-                                                              .qantity)
+                                              int.parse(widget.itemcount[index]
+                                                              .quantity)
                                                           .toInt() !=
                                                       0
                                                   ? "In Stock"
                                                   : "Out Stock",
                                               style: TextStyle(
                                                   fontSize: 19,
-                                                  color: int.parse(itemcount[
+                                                  color: int.parse(widget
+                                                                  .itemcount[
                                                                       index]
-                                                                  .qantity)
+                                                                  .quantity)
                                                               .toInt() !=
                                                           0
                                                       ? Globalvariable
@@ -147,12 +157,22 @@ class Maindata extends StatelessWidget {
                                 ),
                               ),
                               Quantitybutton(
-                                add: () => incrementfunction(
-                                    context, itemcount[index].productname),
-                                remove: () => decrementfunction(
-                                    context, itemcount[index].productname),
-                                number:
-                                    itemcount[index].cartqauntity.toString(),
+                                add: () => {
+                                  setState(() {
+                                    widget.itemcount[index].cartqauntity++;
+                                  }),
+                                  incrementfunction(context,
+                                      widget.itemcount[index].productname),
+                                },
+                                remove: () => {
+                                    setState(() {
+                                    widget.itemcount[index].cartqauntity--;
+                                  }),
+                                  decrementfunction(context,
+                                      widget.itemcount[index].productname),
+                                },
+                                number: widget.itemcount[index].cartqauntity
+                                    .toString(),
                               )
                             ],
                           ),
