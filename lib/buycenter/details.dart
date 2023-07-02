@@ -47,6 +47,7 @@ class _DetailsState extends State<Details> {
   int quantity = 1;
   Future addcart() async {
     var bodypart = {
+      "productnameId":widget.id,
       "productname": widget.productname,
       "usermail": "tapendrabista",
       "image": widget.image,
@@ -54,7 +55,7 @@ class _DetailsState extends State<Details> {
       "price": widget.price,
       "quantity": widget.quantity,
       "catergory": widget.catergory,
-      "cartqauntity": quantity,
+      "cartquantity":quantity,
     };
     var response = await http.patch(
       Uri.parse(carturl),

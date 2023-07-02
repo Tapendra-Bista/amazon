@@ -14,3 +14,4 @@ const availableurl ="$mainurl/available";
 const ratingurl ="$mainurl/rating?productid=";
 const incrementurl ="$mainurl/increment";
 const decrementurl ="$mainurl/decrement";
+const totalurl ="$mainurl/amount";

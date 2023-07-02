@@ -104,8 +104,10 @@ class _SearchpageState extends State<Searchpage> {
                                           ),
                                           CustomRating(
                                             productid: search[index].id,
+
                                             size: 25,
                                           ),
+                                        
                                           const SizedBox(
                                             height: 5,
                                           ),

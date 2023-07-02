@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import '../url/url.dart';
+import 'dart:convert';
 
-class Quantitybutton extends StatelessWidget {
+class Quantitybutton extends StatefulWidget {
   const Quantitybutton(
-      {super.key,
-      required this.add,
-      required this.remove,
-      required this.number});
-  final Function() add;
-  final Function() remove;
-  final String number;
+      {super.key, required this.number, required this.productname});
+
+  final int number;
+  final String productname;
+  @override
+  State<Quantitybutton> createState() => _QuantitybuttonState();
+}
+
+class _QuantitybuttonState extends State<Quantitybutton> {
+  late int quantity = widget.number;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,7 +33,13 @@ class Quantitybutton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InkWell(
-              onTap: remove,
+              onTap: () => {
+                setState(() {
+                  quantity--;
+
+                  decrementfunction();
+                }),
+              },
               child: const Icon(
                 Icons.remove,
                 size: 24,
@@ -40,14 +53,19 @@ class Quantitybutton extends StatelessWidget {
                     color: Colors.white),
                 child: Center(
                     child: Text(
-                  number,
+                  quantity.toString(),
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 20),
                 ))),
             InkWell(
-              onTap: add,
+              onTap: () => {
+                setState(() {
+                   quantity++;
+                  incrementfunction();
+                }),
+              },
               child: const Icon(
                 Icons.add,
                 size: 24,
@@ -57,5 +75,41 @@ class Quantitybutton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // increment or decrement
+  Future incrementfunction() async {
+    var body = {
+      "productname": widget.productname,
+    };
+    debugPrint("productname is ${widget.productname}");
+    try {
+      var response = await http.patch(Uri.parse(incrementurl),
+          body: jsonEncode(body),
+          headers: {"Content-Type": "application/json"});
+      if (response.statusCode == 200) {
+        debugPrint("increment");
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+    }
+  }
+
+  //
+  Future decrementfunction() async {
+    var body = {
+      "productname": widget.productname,
+    };
+    debugPrint("productname is ${widget.productname}");
+    try {
+      var response = await http.patch(Uri.parse(decrementurl),
+          body: jsonEncode(body),
+          headers: {"Content-Type": "application/json"});
+      if (response.statusCode == 200) {
+        debugPrint("decrement");
+      }
+    } catch (error) {
+      debugPrint(error.toString());
+    }
   }
 }

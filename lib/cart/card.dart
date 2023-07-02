@@ -12,8 +12,6 @@ import '../home/customlocation.dart';
 import '../search/search.dart';
 import 'cartmain.dart';
 
-int? cartproductnumber;
-
 class Cardpage extends StatefulWidget {
   const Cardpage({super.key});
 
@@ -32,7 +30,6 @@ class _CardpageState extends State<Cardpage> {
     speech = stt.SpeechToText();
     cartproductFunction();
     cartproduct;
-    makerequal(sum, cartproduct.length);
   }
 
   onListen(context) async {
@@ -166,10 +163,7 @@ class _CardpageState extends State<Cardpage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      responsestring2 != null ||
-                              cartproductnumber == 0 ||
-                              cartproductnumber == null ||
-                              cartproduct.isEmpty
+                      responsestring2 != null
                           ? const Padding(
                               padding: EdgeInsets.only(top: 300, left: 100),
                               child: Text(
@@ -181,11 +175,7 @@ class _CardpageState extends State<Cardpage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Upperpart(
-                                  number: cartproduct.length,
-                                  function: () {},
-                                  totalamout: "\t\$$sum",
-                                ),
+                                const Upperpart(),
                                 Maindata(
                                   future: cartproductFunction(),
                                   itemcount: cartproduct,
@@ -200,7 +190,6 @@ class _CardpageState extends State<Cardpage> {
     );
   }
 
-  int sum = 0;
   OutlineInputBorder custominput() {
     return OutlineInputBorder(
         borderRadius: BorderRadius.circular(9),
@@ -219,12 +208,10 @@ class _CardpageState extends State<Cardpage> {
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in data) {
-        sum += int.parse(Cartmodel.fromJson(index).price) *
-            Cartmodel.fromJson(index).cartqauntity;
-
         cartproduct.add(Cartmodel.fromJson(index));
       }
     }
+
     if (response.statusCode == 404) {
       setState(() {
         responsestring2 = data['message'];
@@ -232,19 +219,7 @@ class _CardpageState extends State<Cardpage> {
 
       debugPrint(" this for cart response${responsestring2.toString()}");
     }
-    makerequal(sum, cartproduct.length);
-    debugPrint(" total sum is $sum");
-    debugPrint(" total cart number is $cartproductnumber");
-
+    cartproduct.toSet();
     return cartproduct;
   }
-
-  makerequal(int x, int y) {
-   setState(() {
-      totalsum = x;
-    cartproductnumber = y;
-   });
-  }
-
-  int? totalsum;
 }

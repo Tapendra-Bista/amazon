@@ -1,13 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../buycenter/details.dart';
 import '../common/singlepro.dart';
 import '../constans/cons.dart';
 import '../rating/rating.dart';
-import '../url/url.dart';
 import 'cartbutton.dart';
-import 'package:http/http.dart' as http;
-
 class Maindata extends StatefulWidget {
   const Maindata({super.key, required this.future, required this.itemcount});
   final Future<List> future;
@@ -50,7 +46,7 @@ class _MaindataState extends State<Maindata> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => Details(
-                                              id: widget.itemcount[index].id,
+                                              id: widget.itemcount[index].productnameId,
                                               catergory: widget
                                                   .itemcount[index].catergory,
                                               productname: widget
@@ -105,8 +101,8 @@ class _MaindataState extends State<Maindata> {
                                             height: 5,
                                           ),
                                           CustomRating(
-                                            productid:
-                                                widget.itemcount[index].id,
+                                            productid: widget
+                                                .itemcount[index].productnameId,
                                             size: 25,
                                           ),
                                           const SizedBox(
@@ -131,8 +127,11 @@ class _MaindataState extends State<Maindata> {
                                             height: 5,
                                           ),
                                           Text(
-                                              int.parse(widget.itemcount[index]
-                                                              .quantity)
+                                              int.parse(
+                                                              widget
+                                                                  .itemcount[
+                                                                      index]
+                                                                  .quantity)
                                                           .toInt() !=
                                                       0
                                                   ? "In Stock"
@@ -157,22 +156,9 @@ class _MaindataState extends State<Maindata> {
                                 ),
                               ),
                               Quantitybutton(
-                                add: () => {
-                                  setState(() {
-                                    widget.itemcount[index].cartqauntity++;
-                                  }),
-                                  incrementfunction(context,
-                                      widget.itemcount[index].productname),
-                                },
-                                remove: () => {
-                                    setState(() {
-                                    widget.itemcount[index].cartqauntity--;
-                                  }),
-                                  decrementfunction(context,
-                                      widget.itemcount[index].productname),
-                                },
-                                number: widget.itemcount[index].cartqauntity
-                                    .toString(),
+                                productname:
+                                    widget.itemcount[index].productname,
+                                number: widget.itemcount[index].cartquantity,
                               )
                             ],
                           ),
@@ -200,35 +186,5 @@ class _MaindataState extends State<Maindata> {
         ),
       ],
     );
-  }
-
-  // increment or decrement
-  Future incrementfunction(context, String productname) async {
-    var body = {
-      "Productname": productname,
-    };
-    try {
-      var response = await http.patch(Uri.parse(incrementurl),
-          body: jsonEncode(body),
-          headers: {"Content-Type": "application/json"});
-      if (response.statusCode == 200) {}
-    } catch (error) {
-      debugPrint(error.toString());
-    }
-  }
-
-  //
-  Future decrementfunction(context, String productname) async {
-    var body = {
-      "productname": productname,
-    };
-    try {
-      var response = await http.patch(Uri.parse(decrementurl),
-          body: jsonEncode(body),
-          headers: {"Content-Type": "application/json"});
-      if (response.statusCode == 200) {}
-    } catch (error) {
-      debugPrint(error.toString());
-    }
   }
 }
