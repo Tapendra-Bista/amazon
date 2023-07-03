@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:amazon/rating/rating.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../buycenter/details.dart';
+import '../productsdetails/details.dart';
 import '../common/singlepro.dart';
 import '../constans/cons.dart';
 import '../model/sell.dart';

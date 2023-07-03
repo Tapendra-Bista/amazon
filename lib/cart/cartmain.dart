@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../buycenter/details.dart';
+import '../productsdetails/details.dart';
 import '../common/singlepro.dart';
 import '../constans/cons.dart';
 import '../rating/rating.dart';

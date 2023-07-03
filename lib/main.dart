@@ -5,6 +5,7 @@ import 'package:amazon/forgotpass/forgot.dart';
 import 'package:amazon/navigationbar/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'buy/buy.dart';
 import 'firstpage/firstpage.dart';
 import 'home/home.dart';
 
@@ -20,7 +21,7 @@ void main() {
     routes: {
       "/createpage": (context) => const Createpage(),
       "/": (context) => const Viewpageuser(),
-
+      "buynow": (context) => const Buynow(),
       "/firstpage": (context) => const Firstpage(),
       "/forgotpass": (context) => const Forgotpass(),
       "/homepage": (context) => const Homepage(),

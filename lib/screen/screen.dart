@@ -4,7 +4,7 @@ import 'package:amazon/model/sell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../buycenter/details.dart';
+import '../productsdetails/details.dart';
 import '../common/appbar.dart';
 import '../common/singlepro.dart';
 import '../constans/cons.dart';

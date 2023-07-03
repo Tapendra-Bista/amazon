@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:amazon/buycenter/textlist.dart';
-import 'package:amazon/buycenter/upperpart.dart';
+import 'package:amazon/productsdetails/textlist.dart';
+import 'package:amazon/productsdetails/upperpart.dart';
 import 'package:amazon/common/expandtextfield.dart';
 import 'package:amazon/common/flash.dart';
 import 'package:amazon/common/materialb.dart';
@@ -271,7 +271,9 @@ class _DetailsState extends State<Details> {
                     ),
                     Custommaterialbutton(
                         width: double.infinity,
-                        function: () {},
+                        function: () {
+                           Navigator.pushNamed(context,"buynow");
+                        },
                         name: "Buy Now",
                         color: Globalvariable.secondarycolor,
                         borderclr: Colors.black,

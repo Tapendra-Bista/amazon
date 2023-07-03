@@ -30,7 +30,7 @@ class _UpperpartState extends State<Upperpart> {
                 primary: false,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount:1,
+                itemCount: 1,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return Column(
@@ -60,7 +60,9 @@ class _UpperpartState extends State<Upperpart> {
                             left: 10, bottom: 15, right: 10),
                         child: Custommaterialbutton(
                             width: 380,
-                            function: () {},
+                            function: () {
+                              Navigator.pushNamed(context,"buynow");
+                            },
                             name: "Proceed to Buy (${list[index].items} items)",
                             color: Colors.amber,
                             borderclr: Colors.black,

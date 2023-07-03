@@ -131,6 +131,7 @@ class _ViewpageuserState extends State<Viewpageuser> {
                                   badgeContent:
                                       Text(cartnumber[index].items.toString()),
                                   badgeStyle: const badges.BadgeStyle(
+                                    padding: EdgeInsets.all(0),
                                       badgeColor: Colors.transparent),
                                   child:
                                       const Icon(Icons.shopping_cart_outlined)),
