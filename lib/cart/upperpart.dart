@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 
 class Upperpart extends StatefulWidget {
   const Upperpart({
-    super.key,
+    super.key, required this.function,
   });
-
+  final Function() function;
   @override
   State<Upperpart> createState() => _UpperpartState();
 }
@@ -60,9 +60,7 @@ class _UpperpartState extends State<Upperpart> {
                             left: 10, bottom: 15, right: 10),
                         child: Custommaterialbutton(
                             width: 380,
-                            function: () {
-                              Navigator.pushNamed(context,"buynow");
-                            },
+                            function: widget.function,
                             name: "Proceed to Buy (${list[index].items} items)",
                             color: Colors.amber,
                             borderclr: Colors.black,

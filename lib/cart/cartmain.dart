@@ -1,4 +1,6 @@
+import 'package:amazon/cart/upperpart.dart';
 import 'package:flutter/material.dart';
+import '../buy/buy.dart';
 import '../productsdetails/details.dart';
 import '../common/singlepro.dart';
 import '../constans/cons.dart';
@@ -40,8 +42,31 @@ class _MaindataState extends State<Maindata> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+  Upperpart(
+                                  function: () {
+                          Navigator.push(context,MaterialPageRoute(builder:(context)=>Buynow(id: widget.itemcount[index].productnameId,
+                                              catergory: widget
+                                                  .itemcount[index].catergory,
+                                              productname: widget
+                                                  .itemcount[index].productname,
+                                              discription: widget
+                                                  .itemcount[index].discription,
+                                              price:
+                                                  widget.itemcount[index].price,
+                                              quantity: widget
+                                                  .itemcount[index].quantity,
+                                              image: widget
+                                                  .itemcount[index].image,
+                                                  cartquantity:1)));           
+                                  },
+                                ),
+
+
+
+
                               InkWell(
                                 onTap: () {
+                                                            
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

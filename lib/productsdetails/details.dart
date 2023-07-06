@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon/buy/buy.dart';
 import 'package:amazon/productsdetails/textlist.dart';
 import 'package:amazon/productsdetails/upperpart.dart';
 import 'package:amazon/common/expandtextfield.dart';
@@ -272,7 +273,7 @@ class _DetailsState extends State<Details> {
                     Custommaterialbutton(
                         width: double.infinity,
                         function: () {
-                           Navigator.pushNamed(context,"buynow");
+                                                       Navigator.push(context,MaterialPageRoute(builder: (context)=>Buynow(image:widget.image, id:widget. id, catergory:widget. catergory, productname:widget. productname, discription:widget. discription, price:widget. price, quantity:widget. quantity, cartquantity:1)));
                         },
                         name: "Buy Now",
                         color: Globalvariable.secondarycolor,

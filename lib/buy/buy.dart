@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:amazon/url/url.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -6,10 +9,27 @@ import '../common/buttonwithicon.dart';
 import '../common/materialb.dart';
 import '../common/textfield.dart';
 import 'credit_card.dart';
+import 'package:http/http.dart' as http;
 
 class Buynow extends StatefulWidget {
-  const Buynow({super.key});
-
+  const Buynow(
+      {super.key,
+      required this.image,
+      required this.id,
+      required this.catergory,
+      required this.productname,
+      required this.discription,
+      required this.price,
+      required this.quantity,
+      required this.cartquantity});
+  final List<String> image;
+  final String id;
+  final String catergory;
+  final String productname;
+  final String discription;
+  final String price;
+  final String quantity;
+  final int cartquantity;
   @override
   State<Buynow> createState() => _BuynowState();
 }
@@ -155,12 +175,68 @@ class _BuynowState extends State<Buynow> {
                         radius: 5,
                         borderclr: Colors.black,
                       ),
-                isTrue == true ? const Credit() : const Row()
+                isTrue == true
+                    ? Credit(
+                        function: () {
+                          addOrder();
+                          postAddress();
+                        },
+                      )
+                    : const Row()
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future postAddress() async {
+    if (area.text.isNotEmpty &&
+        city.text.isNotEmpty &&
+        pincode.text.isNotEmpty &&
+        houseNumber.text.isNotEmpty) {
+      try {
+        var body = {
+          "userEmail": "tapendrabista01@gmail.com",
+          "houseNumber": houseNumber.text,
+          "area": area.text,
+          "city": city.text,
+          "pinCode": pincode.text,
+        };
+        var response = await http.post(
+          Uri.parse(addressurl),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(body),
+        );
+        if (response.statusCode == 200) {
+          debugPrint(jsonDecode(response.body.toString()));
+        }
+      } catch (error) {
+        debugPrint(error.toString());
+      }
+    }
+  }
+
+  Future addOrder() async {
+    var bodypart = {
+      "productnameId": widget.id,
+      "productname": widget.productname,
+      "usermail": "tapendrabista",
+      "image": widget.image,
+      "discription": widget.discription,
+      "price": widget.price,
+      "quantity": widget.quantity,
+      "catergory": widget.catergory,
+      "cartquantity": widget.cartquantity,
+    };
+    var response = await http.patch(
+      Uri.parse(orderurl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(bodypart),
+    );
+    if (response.statusCode == 200) {
+      debugPrint(jsonDecode(response.body.toString()));
+    }
   }
 }

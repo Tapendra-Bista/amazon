@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:amazon/cart/upperpart.dart';
 import 'package:amazon/model/cart.dart';
 import 'package:amazon/url/url.dart';
 import 'package:flashtoast/flash_toast.dart';
@@ -175,7 +174,7 @@ class _CardpageState extends State<Cardpage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Upperpart(),
+                              
                                 Maindata(
                                   future: cartproductFunction(),
                                   itemcount: cartproduct,

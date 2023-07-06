@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 class Credit extends StatefulWidget {
-  const Credit({super.key});
-
+  const Credit({super.key, required this.function});
+  final Function() function;
   @override
   State<Credit> createState() => _CreditState();
 }
@@ -68,7 +68,7 @@ class _CreditState extends State<Credit> {
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(9))),
             expiryDateDecoration: InputDecoration(
-              labelText: 'Expired Date',
+                labelText: 'Expired Date',
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(9),
                     borderSide: const BorderSide(
@@ -77,7 +77,7 @@ class _CreditState extends State<Credit> {
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(9))),
             cvvCodeDecoration: InputDecoration(
-              labelText: 'CVV',
+                labelText: 'CVV',
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(9))),
             obscureCvv: true,
@@ -91,7 +91,14 @@ class _CreditState extends State<Credit> {
             formKey: formkey),
         Custommaterialbutton(
             width: double.infinity,
-            function: () {},
+            function: () {
+              if (cardNumber.isNotEmpty &&
+                  expiryDate.isNotEmpty &&
+                  cardHolderName.isNotEmpty &&
+                  cvvCode.isNotEmpty) {
+                widget.function;
+              }
+            },
             name: "Make Payment",
             color: const Color(0xFF00E070),
             borderclr: Colors.grey,
